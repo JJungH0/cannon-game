@@ -1,7 +1,7 @@
-package com.nhnacademy.canongame;
+package com.nhnacademy.canongame.ballworld;
 
-import com.nhnacademy.cannongame.ballWorld.Ball;
-import com.nhnacademy.cannongame.ballWorld.PaintableBall;
+import com.nhnacademy.cannongame.ballworld.Ball;
+import com.nhnacademy.cannongame.ballworld.PaintableBall;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +22,7 @@ class PaintableBallTest {
     }
 
     @Test
-    public void testPaintableBallInheritance() {
+    void testPaintableBallInheritance() {
         PaintableBall paintableBall = new PaintableBall(100, 100, 20);
 
         // Ball의 메서드들이 작동하는지 확인 (상속 확인)

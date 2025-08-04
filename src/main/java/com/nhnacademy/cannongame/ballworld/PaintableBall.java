@@ -1,4 +1,4 @@
-package com.nhnacademy.cannongame.ballWorld;
+package com.nhnacademy.cannongame.ballworld;
 
 import javafx.scene.paint.Color;
 
@@ -9,6 +9,7 @@ public class PaintableBall extends Ball{
 
     public PaintableBall(double x, double y, double radius) {
         super(x, y, radius);
+        this.color = Color.RED;
     }
 
     public PaintableBall(double x, double y) {

@@ -1,4 +1,4 @@
-package com.nhnacademy.cannongame.ballWorld;
+package com.nhnacademy.cannongame.ballworld;
 
 import java.util.Objects;
 

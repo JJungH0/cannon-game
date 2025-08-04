@@ -1,4 +1,7 @@
-package com.nhnacademy.cannongame.ballWorld;
+package com.nhnacademy.cannongame.ballworld;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,5 +21,11 @@ public class World {
 
     public List<Ball> getBalls() {
         return balls;
+    }
+
+    public void drawBackground(GraphicsContext gc) {
+        gc.setFill(Color.LIGHTGRAY); // 배경색
+        gc.fillRect(0, 0, width, height);
+
     }
 }

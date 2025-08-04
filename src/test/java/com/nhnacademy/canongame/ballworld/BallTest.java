@@ -1,6 +1,6 @@
-package com.nhnacademy.canongame;
+package com.nhnacademy.canongame.ballworld;
 
-import com.nhnacademy.cannongame.ballWorld.Ball;
+import com.nhnacademy.cannongame.ballworld.Ball;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
