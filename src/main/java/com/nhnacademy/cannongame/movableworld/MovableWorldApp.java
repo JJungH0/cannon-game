@@ -41,7 +41,27 @@ public class MovableWorldApp extends Application {
         stage.show();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        /**
+         * 마우스 이벤트 추가
+         */
+        canvas.setOnMouseClicked(event -> {
+            double clickX = event.getX(); // 클릭한 위치의 X좌표
+            double clickY = event.getY(); // 클릭한 위치의 Y좌표
 
+            double cannonX = WIDTH / 2.0; // 대포 위치는 화면 하단 중앙
+            double cannonY = HEIGHT; // 가장 아래
+
+            // 클릭 위치에서 대포 위치로 향하는 방향 벡터
+            Vector2D normalize = new Vector2D(clickX - cannonX, clickY - cannonY).normalize();
+
+            MovableBallByVector ball = new MovableBallByVector(cannonX, cannonY, 15);
+            ball.setColor(Color.RED);
+
+            ball.setVelocity(normalize.multiply(300));
+
+            world.addBall(ball);
+
+        });
         GameLoop gameLoop = new GameLoop(world, gc) {
             private int frameCount = 0;
             private long lastFpsTime = 0L;

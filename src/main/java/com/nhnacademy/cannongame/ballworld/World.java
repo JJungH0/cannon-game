@@ -15,6 +15,14 @@ public class World {
         this.height = height;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void addBall(Ball ball) {
         balls.add(ball);
     }

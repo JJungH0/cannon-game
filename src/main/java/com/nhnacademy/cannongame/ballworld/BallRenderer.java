@@ -1,7 +1,11 @@
 package com.nhnacademy.cannongame.ballworld;
 
+import com.nhnacademy.cannongame.movableworld.MovableBallByVector;
+import com.nhnacademy.cannongame.movableworld.Vector2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import java.util.List;
 
 /**
  * BallRenderer 클래스
@@ -30,15 +34,39 @@ public class BallRenderer {
         double topY = ball.getY() - ball.getRadius();
         double diameter = ball.getRadius() * 2;
 
-        // 1. 공 채우기 (공 색상 사용, null일 때는 빨간색)
         Color fillColor = ball.getColor() == null ? Color.RED : ball.getColor();
         gc.setFill(fillColor);
         gc.fillOval(leftX, topY, diameter, diameter);
 
-        // 2. 검은색 테두리 그리기
-        gc.setStroke(Color.BLACK);   // 테두리 색상: 검정
-        gc.setLineWidth(2);          // 테두리 두께: 2픽셀
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(2);
         gc.strokeOval(leftX, topY, diameter, diameter);
+    }
 
+    public void drawTrail(GraphicsContext gc, MovableBallByVector ball) {
+        List<Vector2D> history = ball.getPositionHistory();
+
+        if (history.size() < 2) {
+            return;
+        }
+
+        gc.setLineWidth(2);
+        gc.setGlobalAlpha(0.5);
+
+        double speed = ball.getSpeed();
+        gc.setStroke(getSpeedColor(speed));
+
+        for (int i = 0; i < history.size() - 1; i++) {
+            Vector2D p1 = history.get(i);
+            Vector2D p2 = history.get(i + 1);
+            gc.strokeLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+        }
+
+        gc.setGlobalAlpha(1.0);
+    }
+
+    private Color getSpeedColor(double speed) {
+        double ratio = Math.min(speed / 300.0, 1.0);
+        return new Color(ratio, 0.0, 1.0 - ratio, 1.0);
     }
 }

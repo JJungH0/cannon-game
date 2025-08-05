@@ -23,6 +23,12 @@ public class GameLoop extends AnimationTimer {
     private long lastUpdate; // 이전 프레임 시간 저장 (nano초)
     private World world; // 게임의 상태/배경/공 등등 정보
     private GraphicsContext gc; // 그래픽을 그릴 캔버스의 펜 도구
+//    private double currentFps = 0.0;
+//    // 테스트용
+//    private boolean paused = false;
+//    private boolean running = false;
+
+
 
     public GameLoop(World world, GraphicsContext gc) {
         this.world = world;
@@ -55,13 +61,25 @@ public class GameLoop extends AnimationTimer {
      * -> 이렇게 되면 느린 컴퓨터에서도 느리게 움직이지 않게 하기 위해 시간에 비례해서 이동
      */
     private void update(double deltaTime) {
+//        for (Ball ball : world.getBalls()) {
+//            // 현재 getBalls()는 반환타입이 Ball이라서
+//            // 타입캐스팅을 통해 업데이트
+//            if (ball instanceof MovableBall) {
+//                ((MovableBall) ball).move(deltaTime);
+//            }
+//        }
+        // 아래 방향으로 작용하는 중력
+        Vector2D gravity = new Vector2D(0, 500);
+
         for (Ball ball : world.getBalls()) {
-            // 현재 getBalls()는 반환타입이 Ball이라서
-            // 타입캐스팅을 통해 업데이트
-            if (ball instanceof MovableBall) {
-                ((MovableBall) ball).move(deltaTime);
+            if (ball instanceof MovableBallByVector mBall) {
+                mBall.applyForce(gravity);
+                mBall.update(deltaTime);
+            } else if (ball instanceof MovableBall mBall) {
+                mBall.move(deltaTime);
             }
         }
+
     }
 
     private void render() {
@@ -71,12 +89,59 @@ public class GameLoop extends AnimationTimer {
 
         BallRenderer renderer = new BallRenderer();
 
+//        for (Ball ball : world.getBalls()) {
+//            if (ball instanceof PaintableBall) {
+//                renderer.drawPaintableBall(gc, (PaintableBall) ball); // 색상 있는 공
+//            } else {
+//                renderer.drawBall(gc, ball); // 기본 검정색 공
+//            }
+//        }
         for (Ball ball : world.getBalls()) {
-            if (ball instanceof PaintableBall) {
-                renderer.drawPaintableBall(gc, (PaintableBall) ball); // 색상 있는 공
-            } else {
-                renderer.drawBall(gc, ball); // 기본 검정색 공
+            if (ball instanceof MovableBallByVector vectorBall) {
+                // 궤적 먼저 그림 (투명 선)
+                renderer.drawTrail(gc, vectorBall);
+                // 공을 그리는 건 기존처럼
+                renderer.drawPaintableBall(gc, vectorBall);
+            }
+            else if (ball instanceof PaintableBall paintableBall) {
+                renderer.drawPaintableBall(gc, paintableBall);
+            }
+            else {
+                renderer.drawBall(gc, ball);
             }
         }
     }
+//
+//    @Override
+//    public void start() {
+//        super.start();
+//        running = true;
+//        paused = false;
+//    }
+
+//    @Override
+//    public void stop() {
+//        super.stop();
+//        running = false;
+//    }
+//
+//    public void pause() {
+//        paused = true;
+//    }
+//
+//    public void resume() {
+//        paused = false;
+//    }
+//
+//    public boolean isRunning() {
+//        return running;
+//    }
+//
+//    public boolean isPaused() {
+//        return paused;
+//    }
+//
+//    public double getCurrentFPS() {
+//        return currentFps;
+//    }
 }
