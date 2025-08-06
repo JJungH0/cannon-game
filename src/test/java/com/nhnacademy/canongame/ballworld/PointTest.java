@@ -1,7 +1,6 @@
-package com.nhnacademy.canongame;
+package com.nhnacademy.canongame.ballworld;
 
-import com.nhnacademy.cannongame.Point;
-import org.junit.jupiter.api.Assertions;
+import com.nhnacademy.cannongame.ballworld.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
